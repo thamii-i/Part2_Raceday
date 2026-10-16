@@ -1,0 +1,89 @@
+digraph RaceDay {
+  graph [rankdir=LR, splines=polyline, nodesep=0.5, ranksep=1.6, fontname="Helvetica", labelloc=t, fontsize=22,
+         label="RaceDay - Entity Relationship Diagram (crow's foot notation)\n ", pad=0.4, bgcolor=white];
+  node [shape=plain, fontname="Helvetica", fontsize=11];
+  edge [fontname="Helvetica", fontsize=12, dir=both, color="#34495e", penwidth=1.4];
+
+  Organisers [label=<
+    <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="4" COLOR="#34495e">
+    <TR><TD COLSPAN="3" BGCOLOR="#2e75b6"><FONT COLOR="white"><B>Organisers</B></FONT></TD></TR>
+    <TR><TD ALIGN="LEFT"><B>PK</B></TD><TD ALIGN="LEFT">OrganiserID</TD><TD ALIGN="LEFT">INT, identity</TD></TR>
+    <TR><TD ALIGN="LEFT"></TD><TD ALIGN="LEFT">FirstName</TD><TD ALIGN="LEFT">VARCHAR(50)</TD></TR>
+    <TR><TD ALIGN="LEFT"></TD><TD ALIGN="LEFT">LastName</TD><TD ALIGN="LEFT">VARCHAR(50)</TD></TR>
+    <TR><TD ALIGN="LEFT"></TD><TD ALIGN="LEFT">Email</TD><TD ALIGN="LEFT">VARCHAR(100), UQ</TD></TR>
+    <TR><TD ALIGN="LEFT"></TD><TD ALIGN="LEFT">Phone</TD><TD ALIGN="LEFT">VARCHAR(20)</TD></TR>
+    <TR><TD ALIGN="LEFT"></TD><TD ALIGN="LEFT">OrganisationName</TD><TD ALIGN="LEFT">VARCHAR(100)</TD></TR>
+    <TR><TD ALIGN="LEFT"></TD><TD ALIGN="LEFT">PasswordHash</TD><TD ALIGN="LEFT">VARCHAR(500)</TD></TR>
+    </TABLE>>];
+
+  Participants [label=<
+    <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="4" COLOR="#34495e">
+    <TR><TD COLSPAN="3" BGCOLOR="#2e75b6"><FONT COLOR="white"><B>Participants</B></FONT></TD></TR>
+    <TR><TD ALIGN="LEFT"><B>PK</B></TD><TD ALIGN="LEFT">ParticipantID</TD><TD ALIGN="LEFT">INT, identity</TD></TR>
+    <TR><TD ALIGN="LEFT"></TD><TD ALIGN="LEFT">FirstName</TD><TD ALIGN="LEFT">VARCHAR(50)</TD></TR>
+    <TR><TD ALIGN="LEFT"></TD><TD ALIGN="LEFT">LastName</TD><TD ALIGN="LEFT">VARCHAR(50)</TD></TR>
+    <TR><TD ALIGN="LEFT"></TD><TD ALIGN="LEFT">Email</TD><TD ALIGN="LEFT">VARCHAR(100), UQ</TD></TR>
+    <TR><TD ALIGN="LEFT"></TD><TD ALIGN="LEFT">Phone</TD><TD ALIGN="LEFT">VARCHAR(20)</TD></TR>
+    <TR><TD ALIGN="LEFT"></TD><TD ALIGN="LEFT">DateOfBirth</TD><TD ALIGN="LEFT">DATE</TD></TR>
+    <TR><TD ALIGN="LEFT"></TD><TD ALIGN="LEFT">Gender</TD><TD ALIGN="LEFT">VARCHAR(10)</TD></TR>
+    <TR><TD ALIGN="LEFT"></TD><TD ALIGN="LEFT">PasswordHash</TD><TD ALIGN="LEFT">VARCHAR(500)</TD></TR>
+    </TABLE>>];
+
+  Events [label=<
+    <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="4" COLOR="#34495e">
+    <TR><TD COLSPAN="3" BGCOLOR="#2e75b6"><FONT COLOR="white"><B>Events</B></FONT></TD></TR>
+    <TR><TD ALIGN="LEFT"><B>PK</B></TD><TD ALIGN="LEFT">EventID</TD><TD ALIGN="LEFT">INT, identity</TD></TR>
+    <TR><TD ALIGN="LEFT"></TD><TD ALIGN="LEFT">EventName</TD><TD ALIGN="LEFT">VARCHAR(100)</TD></TR>
+    <TR><TD ALIGN="LEFT"></TD><TD ALIGN="LEFT">Description</TD><TD ALIGN="LEFT">VARCHAR(500)</TD></TR>
+    <TR><TD ALIGN="LEFT"></TD><TD ALIGN="LEFT">EventDate</TD><TD ALIGN="LEFT">DATE</TD></TR>
+    <TR><TD ALIGN="LEFT"></TD><TD ALIGN="LEFT">Location</TD><TD ALIGN="LEFT">VARCHAR(100)</TD></TR>
+    <TR><TD ALIGN="LEFT"></TD><TD ALIGN="LEFT">DistanceKM</TD><TD ALIGN="LEFT">DECIMAL(5,2)</TD></TR>
+    <TR><TD ALIGN="LEFT"></TD><TD ALIGN="LEFT">EventType</TD><TD ALIGN="LEFT">Run | Walk | Cycle</TD></TR>
+    <TR><TD ALIGN="LEFT"><B>FK</B></TD><TD ALIGN="LEFT">OrganiserID</TD><TD ALIGN="LEFT">INT (Organisers)</TD></TR>
+    </TABLE>>];
+
+  Categories [label=<
+    <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="4" COLOR="#34495e">
+    <TR><TD COLSPAN="3" BGCOLOR="#2e75b6"><FONT COLOR="white"><B>Categories</B></FONT></TD></TR>
+    <TR><TD ALIGN="LEFT"><B>PK</B></TD><TD ALIGN="LEFT">CategoryID</TD><TD ALIGN="LEFT">INT, identity</TD></TR>
+    <TR><TD ALIGN="LEFT"></TD><TD ALIGN="LEFT">CategoryName</TD><TD ALIGN="LEFT">VARCHAR(50), UQ</TD></TR>
+    <TR><TD ALIGN="LEFT"></TD><TD ALIGN="LEFT">Description</TD><TD ALIGN="LEFT">VARCHAR(200), null</TD></TR>
+    </TABLE>>];
+
+  EventCategories [label=<
+    <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="4" COLOR="#34495e">
+    <TR><TD COLSPAN="3" BGCOLOR="#2e75b6"><FONT COLOR="white"><B>EventCategories</B></FONT></TD></TR>
+    <TR><TD ALIGN="LEFT"><B>PK, FK</B></TD><TD ALIGN="LEFT">EventID</TD><TD ALIGN="LEFT">INT (Events)</TD></TR>
+    <TR><TD ALIGN="LEFT"><B>PK, FK</B></TD><TD ALIGN="LEFT">CategoryID</TD><TD ALIGN="LEFT">INT (Categories)</TD></TR>
+    </TABLE>>];
+
+  Enrollments [label=<
+    <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="4" COLOR="#34495e">
+    <TR><TD COLSPAN="3" BGCOLOR="#2e75b6"><FONT COLOR="white"><B>Enrollments</B></FONT></TD></TR>
+    <TR><TD ALIGN="LEFT"><B>PK</B></TD><TD ALIGN="LEFT">EnrollmentID</TD><TD ALIGN="LEFT">INT, identity</TD></TR>
+    <TR><TD ALIGN="LEFT"><B>FK</B></TD><TD ALIGN="LEFT">ParticipantID</TD><TD ALIGN="LEFT">INT (Participants)</TD></TR>
+    <TR><TD ALIGN="LEFT"><B>FK</B></TD><TD ALIGN="LEFT">EventID</TD><TD ALIGN="LEFT">INT (Events)</TD></TR>
+    <TR><TD ALIGN="LEFT"><B>FK</B></TD><TD ALIGN="LEFT">CategoryID</TD><TD ALIGN="LEFT">INT (Categories)</TD></TR>
+    <TR><TD ALIGN="LEFT"></TD><TD ALIGN="LEFT">EnrollmentDate</TD><TD ALIGN="LEFT">DATE, default</TD></TR>
+    <TR><TD ALIGN="LEFT"></TD><TD ALIGN="LEFT">BibNumber</TD><TD ALIGN="LEFT">INT, UQ</TD></TR>
+    <TR><TD ALIGN="LEFT"></TD><TD ALIGN="LEFT">Status</TD><TD ALIGN="LEFT">VARCHAR(20), default</TD></TR>
+    </TABLE>>];
+
+  Results [label=<
+    <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="4" COLOR="#34495e">
+    <TR><TD COLSPAN="3" BGCOLOR="#2e75b6"><FONT COLOR="white"><B>Results</B></FONT></TD></TR>
+    <TR><TD ALIGN="LEFT"><B>PK</B></TD><TD ALIGN="LEFT">ResultID</TD><TD ALIGN="LEFT">INT, identity</TD></TR>
+    <TR><TD ALIGN="LEFT"><B>FK</B></TD><TD ALIGN="LEFT">EnrollmentID</TD><TD ALIGN="LEFT">INT, UQ (Enrollments)</TD></TR>
+    <TR><TD ALIGN="LEFT"></TD><TD ALIGN="LEFT">FinishTime</TD><TD ALIGN="LEFT">TIME</TD></TR>
+    <TR><TD ALIGN="LEFT"></TD><TD ALIGN="LEFT">FinishPosition</TD><TD ALIGN="LEFT">INT</TD></TR>
+    <TR><TD ALIGN="LEFT"></TD><TD ALIGN="LEFT">RecordedAt</TD><TD ALIGN="LEFT">DATETIME2, default</TD></TR>
+    </TABLE>>];
+
+  Organisers -> Events [arrowtail=teetee, arrowhead=crowodot, taillabel="1", headlabel="M", label="  organises  "];
+  Events -> EventCategories [arrowtail=teetee, arrowhead=crowodot, taillabel="1", headlabel="M", label="  offers  "];
+  Categories -> EventCategories [arrowtail=teetee, arrowhead=crowodot, taillabel="1", headlabel="M", label="  assigned via  "];
+  Participants -> Enrollments [arrowtail=teetee, arrowhead=crowodot, taillabel="1", headlabel="M", label="  makes  "];
+  Events -> Enrollments [arrowtail=teetee, arrowhead=crowodot, taillabel="1", headlabel="M", label="  receives  "];
+  Categories -> Enrollments [arrowtail=teetee, arrowhead=crowodot, taillabel="1", headlabel="M", label="  chosen in  "];
+  Enrollments -> Results [arrowtail=teetee, arrowhead=teeodot, taillabel="1", headlabel="0..1", label="  produces  "];
+}

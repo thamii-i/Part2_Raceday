@@ -1,0 +1,15 @@
+## Visual Studio / .NET
+.vs/
+bin/
+obj/
+*.user
+*.suo
+*.userprefs
+[Dd]ebug/
+[Rr]elease/
+TestResults/
+*.log
+.vscode/
+## Local config overrides
+appsettings.Development.json
+appsettings.Local.json
